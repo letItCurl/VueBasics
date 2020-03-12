@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>Vue Basics</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <style>
+            .canvas{
+                width: 300px;
+                height: 300px;
+                margin-top: 20px;
+                background-color: #ddd;
+            }
+        </style> 
+    </head>
+    <body class="">
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-center">
+              <a href="#" class="navbar-brand d-flex align-items-center">
+                <h1 class="text-center" ><span><i class="fas fa-radiation"></i></span> From 0 to Hero: Vue Basics <span><i class="fas fa-radiation"></i></span></h1>
+              </a>
+            </div>
+          </div>
+        
+        <div class="container pb-5">
+            <div class="pt-5" id="part1">
+                <h2>{{ title }}</h2>
+                <p> {{ greet("^^") }} </p>
+                <a v-bind:href="url">Let's proscratinate !</a>
+                <div :class="classes" >Classes from Instance</div>
+                <input type="text" :value="name">
+                <p>note: just getting the v-bind thing, this input is supose to do nothing ;)</p>
+            </div>
+
+            <div class="pt-5" id="part2">
+                <h2><span><i class="fas fa-skull-crossbones"></i></span> {{ title }} <span><i class="fas fa-skull-crossbones"></i></span></h2>
+                <p>I drink {{ wage }} coffe per seconds</p>
+                <div class="row">
+                    <button v-on:click="changeWage(1)" class="btn btn-light shadow-sm">Increase my madness <span><i class="fas fa-hat-wizard"></i></span></button>
+                    <button v-on:click="changeWage(-1)" class="btn btn-light shadow-sm mx-1">Don't make me addict ! <span><i class="fas fa-plus-square"></i></span></button>
+                </div>
+                <div class="row mt-2">
+                    <button v-on:dblclick="changeWage(5)" class="btn btn-outline-danger shadow-sm ">Increase my madness <span><i class="fas fa-hat-wizard"></i></span></button>
+                    <button v-on:dblclick="changeWage(-5)" class="btn btn-outline-danger shadow-sm mx-1 " >Don't make me addict ! <span><i class="fas fa-plus-square"></i></span></button>
+                    <p class="my-auto mx-1 text-warning">Double click events !</p>
+                </div>
+            </div>
+
+            <div class="pt-5" id="part3">
+                <h2><span><i class="fas fa-clipboard-list"></i></span> {{ title }} <span><i class="fas fa-clipboard-list"></i></span></h2>
+                <button @click="logEvent" class="btn btn-light shadow-sm"> I'm here... </button>
+                <p>Mmmmh, got an idea...</p>
+                <div class="canvas" @mousemove="logCoords">[x={{coords.x}}, y={{coords.y}}]</div>
+            </div>
+
+            <div class="pt-5" id="part4">
+                <h2><span><i class="far fa-grimace"></i></span> {{ title }} <span><i class="far fa-grimace"></i></span></h2>
+                <div>You: <input type="text" @keyup="updateSentence" :value="sentence"></div>
+                <p>younger sibling: {{ sentence }}</p>
+                <p>[Second way: (v-model)]</p>
+                <div>You: <input type="text" v-model="sentenceVModel"></div>
+                <p>younger sibling: {{ sentenceVModel }}</p>
+            </div>
+
+            <div class="pt-5" id="part5">
+                <h2><span><i class="fas fa-broadcast-tower"></i></span> {{ title }} {{ clickMessage }} <span><i class="fas fa-broadcast-tower"></i></span></h2>
+                <button @click.alt="logMessage('You just Combo alt+click !')" class="btn btn-light shadow-sm">Alt-Click Thiz!</button>
+                <button @click.shift="logMessage('You just Combo shift+click !')" class="btn btn-light shadow-sm">Shift-Click Thiz!</button>
+                <a class="btn btn-outline-warning shadow-sm" href="http://google.com" @click.prevent="logMessage('MMMMhhh nop ! (see where the link points... :p )')">Turn on Skynet</a>
+                <p>(I add a prevent modifier to avoid the end of the world ;))</p>
+            </div>
+
+            <div class="pt-5" id="part6">
+                <h2><span><i class="fas fa-code"></i></span> {{ title }} <span><i class="fas fa-code"></i></span></h2>
+                <button class="btn btn-light shadow-sm" @click='toggleName'>toggle that name !</button>
+                <button class="btn btn-light shadow-sm" @click='toggleAge'>toggle that Age !</button>
+                <div class="row ml-2">
+                    <p v-if="showName">name: Mario </p>
+                    <p v-else-if="showAge">| age: 25</p>
+                </div>
+            </div>
+            <div class="pt-5" id="part7">
+                <h2><span><i class="fas fa-stream"></i></span> {{ title }} <span><i class="fas fa-stream"></i></span></h2>
+                <table class="table text-center table-striped" style="width: 70%;">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for='item in items'>
+                        <th scope="row" >{{item}}</th>
+                      </tr> 
+                    </tbody>
+                </table>
+                <p>Hop you get the reference...</p>
+                <table class="table text-center table-striped" style="width: 70%;">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Movies</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for='spies in Bonds'>
+                        <th scope="row" >{{spies.name}}</th>
+                        <th scope="row" >{{spies.movies.join(', ')}}</th>
+                      </tr> 
+                    </tbody>
+                </table>
+                <p>I'm big fan of james bond</p>
+            </div>
+        </div>
+
+        <script src="part1.js"></script>
+        <script src="part2.js"></script>
+        <script src="part3.js"></script>
+        <script src="part4.js"></script>
+        <script src="part5.js"></script>
+        <script src="part6.js"></script>
+        <script src="part7.js"></script>
+    </body>
+</html>
